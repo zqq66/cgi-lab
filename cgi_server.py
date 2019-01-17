@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
 """
@@ -15,12 +15,11 @@ https://pointlessprogramming.wordpress.com/2011/02/13/python-cgi-tutorial-1/
 """
 
 
-import BaseHTTPServer
-import CGIHTTPServer
+from http.server import BaseHTTPRequestHandler, HTTPServer, CGIHTTPRequestHandler
  
-Server = BaseHTTPServer.HTTPServer
-handler = CGIHTTPServer.CGIHTTPRequestHandler
-port = 8000
+Server = HTTPServer
+handler = CGIHTTPRequestHandler
+port = 8080
 server_address = ("", port)
 # Find CGI scripts in the current working directory.
 handler.cgi_directories = ["/"]

@@ -13,6 +13,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import cgi
+import cgitb
+cgitb.enable()
 
 import socket
 import os
@@ -28,12 +31,12 @@ listen_socket.bind(("0.0.0.0", PORT))
 listen_socket.listen(5)
 listen_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-print "Proxy listening on localhost:" + str(PORT) + "/"
+print("Proxy listening on localhost:" + str(PORT) + "/")
 
 try:
     while True:
         client_socket, address = listen_socket.accept()
-        print "we got a connection from %s!" % (str(address))
+        print("we got a connection from {}!".format(address))
 
         pid = os.fork()
         if (pid == 0):
@@ -59,11 +62,11 @@ try:
                         raise
                 if not skip:
                     if (len(part) > 0):
-                            print " > " + part
+                            print(" > " + part)
                             remote_socket.sendall(part)
                     else:
                         # part will be "" when the connection is done
-                        print "exiting..."
+                        print("exiting...")
                         client_socket.shutdown(socket.SHUT_RDWR)
                         client_socket.close()
                         remote_socket.shutdown(socket.SHUT_RDWR)
@@ -82,11 +85,11 @@ try:
                         raise
                 if not skip:
                     if (len(part) > 0):
-                            print " < " + part
+                            print(" < " + part)
                             client_socket.sendall(part)
                     else:
                         # part will be "" when the connection is done
-                        print "exiting..."
+                        print("exiting...")
                         client_socket.shutdown(socket.SHUT_RDWR)
                         client_socket.close()
                         remote_socket.shutdown(socket.SHUT_RDWR)
