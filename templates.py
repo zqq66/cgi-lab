@@ -23,7 +23,11 @@ import cgi
 import cgitb
 cgitb.enable()
 
-from cgi import escape
+# Python 3.7 versus Python 3.8
+try:
+    from cgi import escape #v3.7
+except:
+    from html import escape #v3.8
 
 __all__ = ['login_page', 'secret_page', 'after_login_incorrect']
 
