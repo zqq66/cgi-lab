@@ -5,5 +5,3 @@ import cgitb
 import os, json
 from templates import login_page
 print(login_page())
-
-
